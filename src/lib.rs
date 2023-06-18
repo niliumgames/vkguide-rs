@@ -3,6 +3,7 @@ mod window;
 
 pub struct NiliumEngine {
     pub frame_number: usize,
+    pub vulkan: vulkan::Vulkan,
     pub window: window::Window,
 }
 
@@ -10,9 +11,12 @@ impl NiliumEngine {
     pub fn new(width: u32, height: u32) -> Self {
         let window = window::Window::new(width, height);
 
+        let vulkan = vulkan::Vulkan::new(&window);
+
         Self {
             frame_number: 0,
             window,
+            vulkan,
         }
     }
 
