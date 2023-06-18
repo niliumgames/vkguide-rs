@@ -1,0 +1,12 @@
+[package]
+name = "vkguide"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ash = "^0.37"
+ash-window = "^0.12"
+glfw = { version = "^0.52", features = ["vulkan"] }
+raw-window-handle = "^0.5"
