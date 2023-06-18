@@ -1,4 +1,3 @@
-mod vulkan;
 mod window;
 
 pub struct NiliumEngine {
