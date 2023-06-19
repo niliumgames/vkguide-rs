@@ -4,13 +4,14 @@ use ash::{
 };
 use raw_window_handle::{HasRawDisplayHandle, HasRawWindowHandle};
 
+pub mod queue;
+
 pub struct Devices {
     pub physical_device: vk::PhysicalDevice,
     pub surface: vk::SurfaceKHR,
     pub surface_loader: Surface,
     pub device: ash::Device,
-    pub queue_family_index: u32,
-    pub present_queue: vk::Queue,
+    pub queues: queue::Queues,
 }
 
 impl Devices {
@@ -82,12 +83,17 @@ impl Devices {
 
         let present_queue = unsafe { device.get_device_queue(queue_family_index, 0) };
 
+        let mut queues = queue::Queues::default();
+        queues.insert(
+            "present".into(),
+            queue::Queue::new(present_queue, queue_family_index),
+        );
+
         Self {
             physical_device,
             surface,
             device,
-            queue_family_index,
-            present_queue,
+            queues,
             surface_loader,
         }
     }
