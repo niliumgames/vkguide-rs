@@ -8,6 +8,7 @@ use crate::{
     window::Window,
 };
 
+mod commands;
 mod debug;
 mod devices;
 mod swapchain;
@@ -20,6 +21,7 @@ pub struct Vulkan {
     pub instance: ash::Instance,
     pub devices: Devices,
     pub swapchain: Swapchain,
+    pub commands: commands::Commands,
     pub debug_messenger: VulkanDebug,
 }
 
@@ -52,12 +54,15 @@ impl Vulkan {
 
         let swapchain = Swapchain::new(&instance, &devices, window);
 
+        let commands = commands::Commands::new(&devices);
+
         Self {
             debug_messenger: VulkanDebug::new(&entry, &instance),
             instance,
             entry,
             devices,
             swapchain,
+            commands,
         }
     }
 }
